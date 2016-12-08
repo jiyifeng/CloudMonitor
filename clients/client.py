@@ -92,8 +92,8 @@ def liuliang():
         if k == 'lo' or 'tun' in k:
             continue
         else:
-            NET_IN += v.bytes_recv
-            NET_OUT += v.bytes_send
+            NET_IN += v[1]
+            NET_OUT += v[0]
     return NET_IN, NET_OUT
 
 def get_network(ip_version):
