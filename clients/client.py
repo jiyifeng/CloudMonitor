@@ -89,7 +89,7 @@ def liuliang():
     NET_OUT = 0
     net = psutil.net_io_counters(pernic=True)
     for k, v in net.items():
-        if k == 'io' or 'tun' in k:
+        if k == 'lo' or 'tun' in k:
             continue
         else:
             NET_IN += v.bytes_recv
