@@ -87,15 +87,13 @@ class Traffic:
 def liuliang():
     NET_IN = 0
     NET_OUT = 0
-    with open('/proc/net/dev') as f:
-        for line in f.readlines():
-            netinfo = re.findall('([^\s]+):[\s]{0,}(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)', line)
-            if netinfo:
-                if netinfo[0][0] == 'lo' or 'tun' in netinfo[0][0] or netinfo[0][1]=='0' or netinfo[0][9]=='0':
-                    continue
-                else:
-                    NET_IN += int(netinfo[0][1])
-                    NET_OUT += int(netinfo[0][9])
+    net = psutil.net_io_counters(pernic=True)
+    for k, v in net.items():
+        if k == 'io' or 'tun' in k:
+            continue
+        else:
+            NET_IN += v.bytes_recv
+            NET_OUT += v.bytes_send
     return NET_IN, NET_OUT
 
 def get_network(ip_version):
