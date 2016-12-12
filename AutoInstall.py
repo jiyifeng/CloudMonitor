@@ -65,6 +65,10 @@ def scp_put(local_path, remote_path, host, root, passwd):
     os.system('rm shell_exe.cmd')
 
 if __name__ == '__main__':
+    os.system('yum -y install expect')
+    os.system('clear')
+    os.system('apt-get -y install expect')
+    os.system('clear')
     while True:
         print 'Please input the website path for CloudMonitor(Eg: /home/wwwroot/default):'
         webdir = raw_input('the website path is:')
